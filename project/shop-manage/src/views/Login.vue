@@ -1,7 +1,7 @@
 <template>
   <div class="login-box">
     <h1 style="font-size: 80px;
-    color: white;padding-top:300px">后台管理系统</h1>
+    color: white;padding-top:200px">后台管理系统</h1>
     <div class="login-box-modal">
       <el-form label-width="80px" :model="form" ref="formRef" :rules="rules">
         <el-form-item label="用户名" prop="username">
