@@ -1,26 +1,26 @@
 <template>
-  <el-button>测试{{ a }}</el-button>
+  <router-view></router-view>
 </template>
 
 <script>
 import { defineComponent, onMounted, getCurrentInstance } from "vue";
 
 export default defineComponent({
-  async setup() {
-    const { proxy } = getCurrentInstance(); // 获取当前组件示例
+  setup() {
+    // const { proxy } = getCurrentInstance(); // 获取当前组件示例
 
-    console.log(proxy.$ajax)
+    // console.log(proxy.$ajax)
 
-    console.log("created");
-    onMounted(() => {
-      console.log("onMounted");
-    });
+    // console.log("created");
+    // onMounted(() => {
+    //   console.log("onMounted");
+    // });
 
     // 可以发请求
-    const res = await proxy.$ajax.get('/')
-    console.log(res.data)
+    // const res = proxy.$ajax.get('/')
+    // console.log(res.data)
     return {
-      a: 1,
+      // a: 1,
     };
   },
 });
@@ -34,6 +34,7 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 
 #nav {
