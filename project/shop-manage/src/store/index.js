@@ -6,7 +6,19 @@ import { createStore } from 'vuex'
 // require.context 是 webpack 增加的方法
 // 三个参数分别代表 路径 子目录 读文件的标识
 const modulefiles = require.context('./modules', true, /\.js$/)
-console.log(modulefiles)
+const autoImportModules = {}
+
+// const fileNames = modulefiles.keys()
+modulefiles.keys().forEach(filePath => {
+  let moduleObj = modulefiles(filePath)
+  // 获取不同的模块名称
+  let moduleName = filePath.slice(2,filePath.length-3)
+  autoImportModules[moduleName] = moduleObj.default
+});
+
+// console.log(fileNames,'路径')
+console.log(modulefiles,'方法')
+console.log(modulefiles('./user.js'),'导出的对象')
 
 export default createStore({
   state: { // 数据
@@ -17,5 +29,5 @@ export default createStore({
   },
   getters: { // 获取方式
   },
-  // modules: autoImportModules,
+  modules: autoImportModules,
 })
