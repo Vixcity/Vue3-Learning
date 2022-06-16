@@ -21,6 +21,7 @@
 
 <script>
 import { defineComponent, reactive, ref, getCurrentInstance } from "vue";
+import { getUserInfo } from "@/utils";
 export default defineComponent({
   setup() {
     // 获取组件实例
@@ -49,7 +50,16 @@ export default defineComponent({
       formEl.validate(async (valid, fields) => {
         if (valid) {
           const res = await proxy.$ajax.post("login", form);
-          console.log(res, "/login");
+          
+          // 登录之后的流程
+          // token解码
+          const userInfo = getUserInfo(res.data.token)
+
+          // 把数据存储到vuex里面，跨组件需要使用，路由钩子也要用
+          // 存储数据到mutation -> commit
+          proxy.$store.commit('user/serUserInfo',userInfo)
+          proxy.$router.push('/') // 跳转到首页
+
         } else {
           console.log("error submit", fields);
         }
@@ -77,7 +87,7 @@ export default defineComponent({
 .login-box{
     width: 100%;
     height: 100%;
-    background: url('~@assets/image/login.jpg');
+    background: url('~@/assets/image/login.jpg');
     background-size: cover;
 }
 
