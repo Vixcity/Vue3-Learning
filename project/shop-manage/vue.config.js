@@ -1,6 +1,3 @@
-const path = require('path');
-const resolve = (dir) => path.join(__dirname, dir);
-
 module.exports = {
     devServer: {
         open: true,  // npm run serve后自动打开页面
@@ -19,14 +16,5 @@ module.exports = {
                 }
             }
         }
-    },
-
-    // 这里因为一个@assets搞了半天，这里的resolve需要在上面写上方法
-    chainWebpack: config => {
-        config.resolve.alias.set('@', resolve('src'))
-            .set('@assets', resolve('src/assets'))
-            .set('@components', resolve('src/components'))
-            .set('@views', resolve('src/views'))
-            .set('@store', resolve('src/store'));
     },
 }
