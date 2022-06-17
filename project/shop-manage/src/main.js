@@ -3,8 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'element-plus/dist/index.css'
-// 为了这个@assets搞了半天，结果后来那个视频里面说少加了个/，我真的会谢
-import '@assets/style/index.scss'
+import '@/assets/style/index.scss'
 import ElementPlus, { ElMessage } from 'element-plus'
 // 不用api文件封装方法的方式，组件this.$xxx方式
 import Axios from 'axios'
@@ -28,8 +27,9 @@ Axios.interceptors.response.use(function (res) {
         if (token) {
             window.sessionStorage.setItem('token', token)
         }
-    } else if (code === 403) {
-
+    } else if (code === 401) {
+        ElMessage.error('您暂无权限访问')
+        router.replace('/401')
     }
     return res
 })

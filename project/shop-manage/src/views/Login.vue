@@ -57,8 +57,8 @@ export default defineComponent({
 
           // 把数据存储到vuex里面，跨组件需要使用，路由钩子也要用
           // 存储数据到mutation -> commit
-          proxy.$store.commit('user/serUserInfo',userInfo)
-          proxy.$router.push('/') // 跳转到首页
+          proxy.$store.commit('user/setUserInfo',userInfo)
+          proxy.$router.push(proxy.$route.query.redirect || '/') // 跳转到首页
 
         } else {
           console.log("error submit", fields);

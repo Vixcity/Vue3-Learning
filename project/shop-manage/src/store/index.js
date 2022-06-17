@@ -12,13 +12,13 @@ const autoImportModules = {}
 modulefiles.keys().forEach(filePath => {
   let moduleObj = modulefiles(filePath)
   // 获取不同的模块名称
-  let moduleName = filePath.slice(2,filePath.length-3)
+  let moduleName = filePath.slice(2, filePath.length - 3)
   autoImportModules[moduleName] = moduleObj.default
 });
 
 // console.log(fileNames,'路径')
-console.log(modulefiles,'方法')
-console.log(modulefiles('./user.js'),'导出的对象')
+// console.log(modulefiles, '方法')
+// console.log(modulefiles('./user.js'), '导出的对象')
 
 export default createStore({
   state: { // 数据
