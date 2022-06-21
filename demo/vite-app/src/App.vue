@@ -1,17 +1,42 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-import { ref } from 'vue';
-const message = ref('text')
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
   <input v-model="message" />
   {{ message }}
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div :key="index" v-for="(item,index) in arr">{{ item }}</div>
 </template>
+
+<script setup lang="ts">
+// 通过 ref 去把它包装成一个响应式的数据
+import { ref,Ref,isRef,shallowRef,triggerRef,customRef } from 'vue';
+const message = ref<string | number>('text')
+// const messages:Ref<string> = ref('text')
+const arr:Array<string> = ['a','b','c','d']
+arr.splice(2,0,'ddd')
+console.log(isRef(message),isRef(arr))
+
+// 浅层响应式
+const meaasgeObj = shallowRef({
+  name:'wx',
+})
+
+// 可以强制更新 Ref 的内容
+triggerRef(meaasgeObj)
+
+// 同一个函数里面的 ref 的更新会导致 shallowRef 的更新
+function myRef<T> (value:T){
+  return customRef( (track, trigger) => {
+    return {
+      get(){
+        track()
+        return value
+      },
+      set(newVal:T){
+        value = newVal
+        trigger()
+      }
+    }
+  })
+}
+</script>
 
 <style>
 #app {
